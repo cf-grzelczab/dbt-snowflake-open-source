@@ -29,6 +29,12 @@ select
     fare_amount,
     tip_amount,
     tolls_amount,
+    coalesce(extra_amount, 0)
+        + coalesce(mta_tax_amount, 0)
+        + coalesce(improvement_surcharge_amount, 0)
+        + coalesce(congestion_surcharge_amount, 0)
+        + coalesce(airport_fee_amount, 0)
+        + coalesce(cbd_congestion_fee_amount, 0) as surcharges_amount,
     total_amount,
     loaded_at
 from {{ ref('int_trips__enriched') }}

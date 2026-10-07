@@ -23,6 +23,10 @@ models:
                 min_value: 0
                 max_value: 1440
                 inclusive: false
+      - name: surcharges_amount
+        description: >
+          Sum of extra, MTA tax, improvement and congestion surcharges, airport fee
+          and CBD congestion fee (missing components count as 0).
       - name: trip_distance_miles
         data_tests:
           - dbt_utils.accepted_range:

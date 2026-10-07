@@ -39,8 +39,14 @@ enriched as (
         trips.passenger_count,
         trips.trip_distance_miles,
         trips.fare_amount,
+        trips.extra_amount,
+        trips.mta_tax_amount,
         trips.tip_amount,
         trips.tolls_amount,
+        trips.improvement_surcharge_amount,
+        trips.congestion_surcharge_amount,
+        trips.airport_fee_amount,
+        trips.cbd_congestion_fee_amount,
         trips.total_amount,
 
         -- Each monthly file also contains a few trips from other months
