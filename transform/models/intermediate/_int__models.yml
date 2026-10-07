@@ -22,7 +22,9 @@ models:
       - name: is_in_file_period
         description: True when the pickup falls in the month of the file the trip came from.
       - name: is_plausible_trip
-        description: True when dropoff is after pickup, distance is positive and the total is not negative.
+        description: >
+          True when dropoff is after pickup and within 24 hours, distance is between
+          0 and 500 miles (exclusive) and the total is not negative.
       - name: is_valid_trip
         description: Both flags above are true. Only valid trips reach the marts.
         data_tests:

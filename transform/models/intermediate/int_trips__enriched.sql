@@ -47,7 +47,9 @@ enriched as (
         date_trunc('month', trips.pickup_at)
             = to_date(regexp_substr(trips.source_file, '\\d{4}-\\d{2}'), 'YYYY-MM') as is_in_file_period,
         trips.dropoff_at > trips.pickup_at
+            and datediff('hour', trips.pickup_at, trips.dropoff_at) < 24
             and trips.trip_distance_miles > 0
+            and trips.trip_distance_miles < 500
             and trips.total_amount >= 0 as is_plausible_trip,
 
         trips.source_file,
