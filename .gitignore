@@ -1,0 +1,19 @@
+# Local secrets / connection settings
+.env
+*.p8
+*.pem
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# dbt
+transform/target/
+transform/dbt_packages/
+transform/logs/
+logs/
+.user.yml
+
+# Downloaded raw data
+data/

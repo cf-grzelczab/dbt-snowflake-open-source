@@ -1,0 +1,20 @@
+version: 2
+
+seeds:
+  - name: taxi_zone_lookup
+    description: Official TLC taxi zone lookup (https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page).
+  - name: payment_types
+    description: Payment type codes from the TLC yellow trip data dictionary.
+    columns:
+      - name: payment_type_id
+        data_tests: [unique, not_null]
+  - name: rate_codes
+    description: Rate code values from the TLC yellow trip data dictionary.
+    columns:
+      - name: rate_code_id
+        data_tests: [unique, not_null]
+  - name: vendors
+    description: Technology providers (VendorID) from the TLC yellow trip data dictionary.
+    columns:
+      - name: vendor_id
+        data_tests: [unique, not_null]

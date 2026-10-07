@@ -1,0 +1,20 @@
+version: 2
+
+models:
+  - name: int_trips__enriched
+    description: >
+      Trips joined to zones and code lookups, with duration and data-quality flags.
+      Keeps every trip so invalid ones can still be inspected.
+    columns:
+      - name: trip_id
+        data_tests:
+          - unique
+          - not_null
+      - name: is_in_file_period
+        description: True when the pickup falls in the month of the file the trip came from.
+      - name: is_plausible_trip
+        description: True when dropoff is after pickup, distance is positive and the total is not negative.
+      - name: is_valid_trip
+        description: Both flags above are true. Only valid trips reach the marts.
+        data_tests:
+          - not_null

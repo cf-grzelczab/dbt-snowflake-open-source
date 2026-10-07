@@ -1,0 +1,8 @@
+snapshots:
+  - name: snap_taxi_zones
+    description: History of changes to the TLC taxi zone lookup (SCD type 2).
+    relation: ref('taxi_zone_lookup')
+    config:
+      unique_key: locationid
+      strategy: check
+      check_cols: all

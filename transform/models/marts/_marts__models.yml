@@ -1,0 +1,39 @@
+version: 2
+
+models:
+  - name: fct_trips
+    description: >
+      One row per valid yellow taxi trip. Incremental: each run only merges trips
+      from files loaded after the latest loaded_at already in the table.
+    columns:
+      - name: trip_id
+        data_tests:
+          - unique
+          - not_null
+      - name: pickup_location_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_zones')
+                field: location_id
+      - name: trip_duration_minutes
+        data_tests:
+          - dbt_utils.accepted_range:
+              arguments:
+                min_value: 0
+                inclusive: false
+
+  - name: dim_zones
+    description: TLC taxi zones with borough and an airport flag.
+    columns:
+      - name: location_id
+        data_tests:
+          - unique
+          - not_null
+
+  - name: agg_daily_trips
+    description: Daily trip counts and revenue per pickup borough.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [pickup_date, pickup_borough]

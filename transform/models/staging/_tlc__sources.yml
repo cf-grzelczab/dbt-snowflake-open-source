@@ -1,0 +1,25 @@
+version: 2
+
+sources:
+  - name: tlc
+    description: >
+      NYC Taxi & Limousine Commission trip records, loaded from the public
+      parquet files by ingestion/load_nyc_taxi.py.
+    database: "{{ env_var('SNOWFLAKE_DATABASE') }}"
+    schema: "{{ env_var('SNOWFLAKE_RAW_SCHEMA') }}"
+    config:
+      loaded_at_field: _loaded_at
+      freshness:
+        warn_after: { count: 7, period: day }
+        error_after: { count: 30, period: day }
+    tables:
+      - name: yellow_tripdata
+        description: One row per yellow taxi trip, exactly as published by the TLC.
+        columns:
+          - name: tpep_pickup_datetime
+            data_tests:
+              - not_null
+          - name: _source_file
+            description: Stage path of the file the row was loaded from.
+          - name: _loaded_at
+            description: When the COPY INTO started for this file.

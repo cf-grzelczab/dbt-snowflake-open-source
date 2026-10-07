@@ -1,0 +1,26 @@
+name: nyc_taxi
+version: "1.0.0"
+profile: course_project
+
+model-paths: ["models"]
+seed-paths: ["seeds"]
+test-paths: ["tests"]
+snapshot-paths: ["snapshots"]
+macro-paths: ["macros"]
+
+clean-targets:
+  - target
+  - dbt_packages
+
+models:
+  nyc_taxi:
+    staging:
+      +materialized: view
+    intermediate:
+      +materialized: view
+    marts:
+      +materialized: table
+
+seeds:
+  nyc_taxi:
+    +quote_columns: false
