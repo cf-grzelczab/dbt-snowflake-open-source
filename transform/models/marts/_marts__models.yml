@@ -37,3 +37,13 @@ models:
       - dbt_utils.unique_combination_of_columns:
           arguments:
             combination_of_columns: [pickup_date, pickup_borough]
+
+  - name: agg_hourly_trips
+    description: Average demand per weekday and hour of day, for spotting rush hours.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [pickup_day_of_week, pickup_hour]
+    columns:
+      - name: avg_trips_per_day
+        description: Trips in this weekday/hour slot divided by the number of such days in the data.
