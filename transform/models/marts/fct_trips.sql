@@ -3,6 +3,7 @@
         materialized='incremental',
         unique_key='trip_id',
         incremental_strategy='merge',
+        on_schema_change='append_new_columns',
         cluster_by=['pickup_date']
     )
 }}
@@ -12,6 +13,9 @@ select
     pickup_at,
     dropoff_at,
     pickup_date,
+    pickup_hour,
+    pickup_day_of_week,
+    is_weekend_pickup,
     trip_duration_minutes,
     vendor_name,
     rate_code,

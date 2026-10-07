@@ -10,6 +10,15 @@ models:
         data_tests:
           - unique
           - not_null
+      - name: pickup_hour
+        description: Hour of day (0-23) of the pickup.
+        data_tests:
+          - dbt_utils.accepted_range:
+              arguments:
+                min_value: 0
+                max_value: 23
+      - name: is_weekend_pickup
+        description: True for pickups on Saturday or Sunday.
       - name: is_in_file_period
         description: True when the pickup falls in the month of the file the trip came from.
       - name: is_plausible_trip

@@ -17,6 +17,9 @@ enriched as (
         trips.pickup_at,
         trips.dropoff_at,
         trips.pickup_at::date as pickup_date,
+        hour(trips.pickup_at) as pickup_hour,
+        dayname(trips.pickup_at) as pickup_day_of_week,
+        dayofweekiso(trips.pickup_at) in (6, 7) as is_weekend_pickup,
         datediff('second', trips.pickup_at, trips.dropoff_at) / 60.0 as trip_duration_minutes,
 
         trips.vendor_id,
