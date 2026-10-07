@@ -49,6 +49,9 @@ models:
       - dbt_utils.unique_combination_of_columns:
           arguments:
             combination_of_columns: [pickup_date, pickup_borough]
+    columns:
+      - name: airport_trip_count
+        description: Trips that start or end at JFK, LaGuardia or Newark.
 
   - name: agg_hourly_trips
     description: Average demand per weekday and hour of day, for spotting rush hours.
