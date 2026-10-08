@@ -7,7 +7,9 @@ course_project:
       type: snowflake
       account: "{{ env_var('SNOWFLAKE_ACCOUNT') }}"
       user: "{{ env_var('SNOWFLAKE_USER') }}"
-      authenticator: "{{ env_var('SNOWFLAKE_AUTHENTICATOR', 'externalbrowser') }}"
+      # SNOWFLAKE_PAT wins when set; otherwise SNOWFLAKE_AUTHENTICATOR (default SSO) with optional password
+      authenticator: "{{ 'programmatic_access_token' if env_var('SNOWFLAKE_PAT', '') else (env_var('SNOWFLAKE_AUTHENTICATOR', '') or 'externalbrowser') }}"
+      token: "{{ env_var('SNOWFLAKE_PAT', '') }}"
       password: "{{ env_var('SNOWFLAKE_PASSWORD', '') }}"
       role: "{{ env_var('SNOWFLAKE_ROLE') }}"
       warehouse: "{{ env_var('SNOWFLAKE_WAREHOUSE') }}"

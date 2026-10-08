@@ -15,6 +15,8 @@ You need a Snowflake role that can create schemas, stages, tables and views in o
 
 1. Copy `.env.example` to `.env` and fill in your account, user, role, warehouse, database and schemas.
    `.env` is git-ignored, so credentials and account details stay on your machine.
+   Login: set `SNOWFLAKE_PAT` to use a programmatic access token (your Snowflake user needs a network policy for that);
+   leave it empty to sign in through the browser (SSO, the default) or with `SNOWFLAKE_PASSWORD`.
 2. Create a virtual environment and install dependencies:
 
    ```powershell

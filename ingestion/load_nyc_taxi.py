@@ -26,13 +26,18 @@ def connect() -> snowflake.connector.SnowflakeConnection:
     params = {
         "account": os.environ["SNOWFLAKE_ACCOUNT"],
         "user": os.environ["SNOWFLAKE_USER"],
-        "authenticator": os.getenv("SNOWFLAKE_AUTHENTICATOR", "externalbrowser"),
         "role": os.environ["SNOWFLAKE_ROLE"],
         "warehouse": os.environ["SNOWFLAKE_WAREHOUSE"],
         "database": os.environ["SNOWFLAKE_DATABASE"],
-        # Cache the SSO token so the browser only opens once
-        "client_store_temporary_credential": True,
     }
+    if os.getenv("SNOWFLAKE_PAT"):
+        params["authenticator"] = "programmatic_access_token"
+        params["token"] = os.environ["SNOWFLAKE_PAT"]
+        return snowflake.connector.connect(**params)
+
+    params["authenticator"] = os.getenv("SNOWFLAKE_AUTHENTICATOR") or "externalbrowser"
+    # Cache the SSO token so the browser only opens once
+    params["client_store_temporary_credential"] = True
     if os.getenv("SNOWFLAKE_PASSWORD"):
         params["password"] = os.environ["SNOWFLAKE_PASSWORD"]
     return snowflake.connector.connect(**params)
